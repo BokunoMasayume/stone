@@ -50,7 +50,7 @@ class Lexer{
         else if(matcher[4]){
             //is string
 
-            token = new StrToken(lineNum , matcher[4] );
+            token = new StrToken(lineNum , this.strToLiteralStr(matcher[4]) );
             this.tokenQueue.push(token);
         }
         else {
@@ -136,6 +136,54 @@ class Lexer{
         }
     }
 
+    /**
+     * 
+     * @param {String} str 
+     * @example hello,world\n => hello,world[换行enter]
+     */
+    strToLiteralStr(strin){
+        let str = strin.split("");
+        let octNum = /[0-9a-zA-Z]+/g;//  set g to use lastIndex property
+        for(let i=0 ; i<str.length ; i++){
+            if(str[i]==='\\'){
+                //转义符 esc escape character
+                switch (str[i+1]){
+                    //reference to tokenReg 
+                    case 'n':
+                        str.splice(i,2  , '\n');
+                        break;
+                    case 't':
+                        str.splice(i , 2 , '\t');
+                        break;
+                    case 'r':
+                        str.splice(i , 2 , '\r');
+                        break;
+                    case 'b':
+                        str.splice(i, 2 , '\b');
+                        break;
+                    case 'f':
+                        str.splice(i, 2 , '\f');
+                        break;
+                    case 'v':
+                        str.splice(i, 2, '\v');
+                        break;
+                    case 'u'://unicode
+                        octNum.lastIndex = i+2;
+                        let num = octNum.exec(str);
+                        str.splice(i, num.length+2  , String.fromCodePoint( parseInt(num , 16) ));
+                        break;
+                    default:// like " ' \
+                        str.splice(i, 2 , str[i+1]);
+
+                }
+            }
+        }
+
+
+
+        return str.join("");
+    }
+
 }
 
 
@@ -148,10 +196,10 @@ class Lexer{
 //1 : total token matched ,第一个括号
 //2 : 注释
 //3 : 数字
-//4 : 字符串
+//4 : 字符串 " is the special one in regexp expression
 //5 /1 : 标识符
 //1 : 一些标点
-Lexer.tokenReg = /\s*((\/\/.*)|((?:[0-9]+\.?[0-9]*(?:[eE][0-9]+)?)|(?:[0-9]*\.?[0-9]+(?:[eE][0-9]+)?))|"((?:\\"|\\\\|\\n|[^"])*)"|([a-zA-Z_][a-zA-Z_0-9]*)|==|>=|<=|&&|\|\||[{},:;|&<=>?!~^$%+\-*/])/g;
+Lexer.tokenReg = /\s*((\/\/.*)|((?:[0-9]+\.?[0-9]*(?:[eE][0-9]+)?)|(?:[0-9]*\.?[0-9]+(?:[eE][0-9]+)?))|"((?:\\"|[^"])*)"|([a-zA-Z_][a-zA-Z_0-9]*)|==|>=|<=|&&|\|\||[{},:;|&<=>?!~^$%+\-*/])/g;
 
 function isString(val){
     return typeof val === "string" || val instanceof String;
