@@ -1,0 +1,19 @@
+{
+  "name": "stone",
+  "version": "1.0.0",
+  "description": "> 《两周自制脚本语言》 js实现",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BokunoMasayume/stone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BokunoMasayume/stone/issues"
+  },
+  "homepage": "https://github.com/BokunoMasayume/stone#readme"
+}
