@@ -30,6 +30,9 @@ class Token{
 
 Token.EOF = new Token(-1);
 
-Token.EOL = '\\n';
+Token.EOL = new Token(-2);
+
+Token.EOL.getText = function(){return '\\n';}
+
 
 module.exports = Token;

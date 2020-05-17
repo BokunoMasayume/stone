@@ -127,6 +127,10 @@ class Lexer{
         }
     }
 
+    /**
+     * 
+     * @param {number} step - when step=0 , just peek the current token. 
+     */
     peek(step){
         //read random index token
         if(this.fillQueue(step +1) ){

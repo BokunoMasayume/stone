@@ -2,6 +2,7 @@ const ASTree = require('./ASTree');
 
 class ASTList extends ASTree{
     constructor(children){
+        super();
         if( !( children instanceof Array)){
             throw new Error("ASTList: children must be Array<ASTree>")
         }

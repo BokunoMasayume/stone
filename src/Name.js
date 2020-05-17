@@ -8,6 +8,7 @@ class Name extends ASTLeaf{
     name(){
         this.token().getText();
     }
+
 }
 
 module.exports = Name;

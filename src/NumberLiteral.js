@@ -9,7 +9,7 @@ class NumberLiteral extends ASTLeaf{
         return this.token().getNumber();
     }
 
-
+    
 }
 
 module.exports = NumberLiteral;

@@ -1,7 +1,9 @@
 const ASTree = require('./ASTree');
+const Token = require('./token')
 
 class ASTLeaf extends ASTree{
     constructor(token){
+        super();
         if(token instanceof Token){
             this._token = token;
         }else{
